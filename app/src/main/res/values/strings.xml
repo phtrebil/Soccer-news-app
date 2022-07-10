@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Soccer News</string>
+    <string name="title_news">News</string>
+    <string name="title_favorites">Favorites</string>
+    <string name="content_description_media" />
+    <string name="title">FLAMENGO VENCE PALMEIRAS</string>
+    <string name="tvDescription">FDIFHSAOÇFGHSPOIFDHGSDPOIFHGSDAOIFHGPHFGOSIPAHGOSIHGSOIPHGSDOIHGOIHGSDOFIHGSDOIHGOSIHGSODIHGSDAOIHGSDOAIHGSODIHGSDOIAHGSADOIHGSDAOIHGSAOIHGSOIHGSDOIGHSAOIHGSs</string>
+    <string name="btOpenLink"> SAIBA+ </string>
+    <string name="cd_news_image">News Image</string>
+    <string name="txt_open_link">Open Link</string>
+    <string name="cd_favorite_icon">Favorite icon</string>
+    <string name="cd_share_icon">Share icon</string>
+
+
+</resources>

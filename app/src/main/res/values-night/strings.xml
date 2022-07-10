@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="content_description_media" />
+    <string name="title" />
+    <string name="tvDescription" />
+    <string name="btOpenLink" />
+    <string name="cd_news_image">News Image</string>
+    <string name="txt_open_link">Open Link</string>
+    <string name="cd_favorite_icon">Favorite icon</string>
+    <string name="cd_share_icon">Share icon</string>
+</resources>
