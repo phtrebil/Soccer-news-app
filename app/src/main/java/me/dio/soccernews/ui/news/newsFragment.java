@@ -4,34 +4,59 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import me.dio.soccernews.databinding.FragmentNewsBinding;
+import com.google.android.material.snackbar.Snackbar;
+
+import me.dio.soccernews.R;
 import me.dio.soccernews.databinding.FragmentNewsBinding;
 import me.dio.soccernews.ui.adapter.NewsAdapter;
 
 public class newsFragment extends Fragment {
 
     private FragmentNewsBinding binding;
+    private newsViewModel newsViewModel;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        newsViewModel newsViewModel =
-                new ViewModelProvider(this).get(newsViewModel.class);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        newsViewModel = new ViewModelProvider(this).get(newsViewModel.class);
 
         binding = FragmentNewsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         binding.rcNews.setLayoutManager(new LinearLayoutManager(getContext()));
-        newsViewModel.getNews().observe(getViewLifecycleOwner(), news -> {
-            binding.rcNews.setAdapter(new NewsAdapter(news));
-        });
+
+        observeNews();
+        observeStates();
+
+        binding.srlNews.setOnRefreshListener(newsViewModel::findNews);
+
         return root;
+    }
+
+    private void observeNews() {
+        newsViewModel.getNews().observe(getViewLifecycleOwner(), news -> {
+            binding.rcNews.setAdapter(new NewsAdapter(news, newsViewModel::saveNews));
+        });
+    }
+
+    private void observeStates() {
+        newsViewModel.getState().observe(getViewLifecycleOwner(), state -> {
+            switch (state) {
+                case DOING:
+                    binding.srlNews.setRefreshing(true);
+                    break;
+                case DONE:
+                    binding.srlNews.setRefreshing(false);
+                    break;
+                case ERROR:
+                    binding.srlNews.setRefreshing(false);
+                    Snackbar.make(binding.srlNews, R.string.error_network, Snackbar.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -39,4 +64,6 @@ public class newsFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
+
 }
